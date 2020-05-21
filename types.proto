@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.github.lightpos.lightui.networking.rpc";
+
+// Empty response 
+message Empty {}
+
+message ObjectId {
+    bytes contents = 1;
+}
+
+message RpcColor {
+    uint32 a = 1;
+    uint32 r = 2;
+    uint32 g = 3;
+    uint32 b = 4;
+}
+
+message RpcValue {
+    oneof value {
+        bool nullVal = 1;
+        bool boolVal = 2;
+        string stringVal = 3;
+        bytes bytesVal = 4;
+        double doubleVal = 5;
+        float floatVal = 6;
+        int32 int32Val = 7;
+        int64 int64Val = 8;
+        // For empty objects
+        Empty emptyVal = 9;
+        ObjectId uuidVal = 10;
+        RpcColor colorVal = 11;
+    }
+}

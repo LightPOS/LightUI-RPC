@@ -1,5 +1,31 @@
 syntax = "proto3";
 
-message ComponentProperty {
-    
+option java_multiple_files = true;
+option java_package = "io.github.lightpos.lightui.networking.rpc";
+
+import "types.proto";
+
+enum ComponentType {
+    Custom = 0;
+    Label = 1;
+    View = 2;
+}
+
+message RemoteComponentProperty {
+    ObjectId id = 1;
+    oneof value {
+        RpcValue rpcValue = 2;
+    }
+}
+
+message RemoteComponentEvent {
+    ObjectId id = 1;
+}
+
+message RemoteComponent {
+    ObjectId id = 1;
+    repeated RemoteComponent children = 2;
+    map<string, RemoteComponentProperty> properties = 3;
+    map<string, RemoteComponentProperty> attachedProperties = 4;
+    map<string, RemoteComponentEvent> events = 5;
 }
